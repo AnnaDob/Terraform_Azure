@@ -1,24 +1,24 @@
-locals {
-  setup_name = "dev"
-}
-
-
-// Configure the Resource Group
-resource "azurerm_resource_group" "main" {
-  name     = "${local.setup_name}_main_resource_group"
-  location = "West Europe"
-}
-
-// Configure the Storage Account
-resource "azurerm_storage_account" "dev" {
-  name                     = "${local.setup_name}storage358"
-  resource_group_name      = azurerm_resource_group.main.name
-
-  location                 = azurerm_resource_group.main.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-
-  tags = {
-    environment = "staging"
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "dev_main_resource_group"
+    storage_account_name = "devstorage358"
+    container_name       = "tfstate"
+    key                  = "terraform.tfstate"
   }
+}
+
+
+resource "azurerm_virtual_network" "example" {
+  name                = var.test_vnet_name
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  address_space       = var.vnet_address_spase
+}
+
+resource "azurerm_subnet" "subnet" {
+  for_each = var.subnets
+  resource_group_name = var.resource_group_name
+  virtual_network_name = var.test_vnet_name
+  name = each.value["name"]
+  address_prefixes = each.value["address_prefixes"]
 }
