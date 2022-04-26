@@ -13,9 +13,9 @@ variable "storage_account_name" {
   default = "devstorage358"
 }
 
-variable "test_vnet_name" {
+variable "my_vnet_name" {
   type    = string
-  default = "test_vnet_name"
+  default = "my_vnet_name"
 }
 
 variable "vnet_address_spase" {
