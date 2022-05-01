@@ -1,0 +1,11 @@
+- hosts: all
+  tasks:
+  - name: Ansible create directory
+    file:
+      path: "/home/my_vm_admin/Ansible"
+      state: directory
+
+  - name: Ansible create file
+    file:
+      path: "/home/my_vm_admin/Ansible/example_file.txt"
+      state: touch
