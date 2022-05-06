@@ -27,12 +27,11 @@ resource "azurerm_network_interface" "my_nic" {
   }
 }
 
-# # Connect the security group to the network interface
+# Connect the security group to the network interface
 resource "azurerm_network_interface_security_group_association" "connect_nic_ngp" {
   network_interface_id      = azurerm_network_interface.my_nic.id
   network_security_group_id = azurerm_network_security_group.my_ngp.id
 }
-
 
 # Create (and display) an SSH key
 resource "tls_private_key" "vm_ssh" {
@@ -40,7 +39,7 @@ resource "tls_private_key" "vm_ssh" {
   rsa_bits  = 4096
 }
 
-# # Create virtual machine
+# Create virtual machine
 resource "azurerm_virtual_machine" "linux_vm" {
   name                  = "linux_vm"
   location              = var.location
@@ -62,11 +61,13 @@ resource "azurerm_virtual_machine" "linux_vm" {
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
-  os_profile {
+ 
+ os_profile {
     computer_name  = "hostname"
     admin_username = "my_vm_admin"
     admin_password = random_password.password.result
-  }
+ }
+
   os_profile_linux_config {
     disable_password_authentication = false
   }

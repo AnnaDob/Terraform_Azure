@@ -1,0 +1,9 @@
+---
+- name: ensure a container is running
+  docker_container:
+    name: getting-started
+    state: started
+    image: docker/getting-started
+    pull: true
+    ports:
+      - "80:80"
