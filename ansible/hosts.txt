@@ -1,1 +1,1 @@
-20.103.250.109       ansible_user=my_vm_admin    
+20.229.134.198       ansible_user=my_vm_admin    
