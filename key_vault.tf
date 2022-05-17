@@ -12,5 +12,31 @@ resource "azurerm_key_vault" "my_key_vault" {
   access_policy {
     tenant_id = data.azurerm_client_config.current.tenant_id
     object_id = data.azurerm_client_config.current.object_id
+
+  key_permissions = [
+      "Create",
+      "Get",
+      "List"
+    ]
+
+  secret_permissions = [
+      "Set",
+      "Get",
+      "Delete",
+      "Purge",
+      "Recover",
+      "List"
+    ]
+
+  storage_permissions = [
+     "Set",
+     "List"
+    ]
   }
+}
+
+resource "azurerm_key_vault_secret" "app_service_name" {
+  name         = "app-service-name"
+  value        = azurerm_linux_web_app.my_app_service.name
+  key_vault_id = azurerm_key_vault.my_key_vault.id
 }
