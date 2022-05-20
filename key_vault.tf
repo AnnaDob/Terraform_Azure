@@ -22,15 +22,13 @@ resource "azurerm_key_vault" "my_key_vault" {
   secret_permissions = [
       "Set",
       "Get",
-      "Delete",
-      "Purge",
-      "Recover",
       "List"
     ]
 
   storage_permissions = [
      "Set",
-     "List"
+     "List",
+     "Get"
     ]
   }
 }
@@ -38,5 +36,11 @@ resource "azurerm_key_vault" "my_key_vault" {
 resource "azurerm_key_vault_secret" "app_service_name" {
   name         = "app-service-name"
   value        = azurerm_linux_web_app.my_app_service.name
+  key_vault_id = azurerm_key_vault.my_key_vault.id
+}
+
+resource "azurerm_key_vault_secret" "docker_registry_server_passwd" {
+  name         = "docker-registry-server-passwd"
+  value        = azurerm_container_registry.acr.admin_password
   key_vault_id = azurerm_key_vault.my_key_vault.id
 }
