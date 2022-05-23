@@ -1,4 +1,4 @@
-data "azuread_client_config" "current" {}
+# data "azuread_client_config" "current" {}
 
 resource "azurerm_container_registry" "acr" {
   name                = "devsuperappregistry"
