@@ -1,6 +1,6 @@
 # Create Network Security Group and rule for VM
 resource "azurerm_network_security_group" "my_ngp" {
-  name                = "my_ngp"
+  name                = var.nsg_for_vm
   location            = var.location
   resource_group_name = var.resource_group_name
 
@@ -44,7 +44,7 @@ resource "azurerm_network_security_group" "my_ngp" {
 
 # Create Network Security Group and rule for subnet
 resource "azurerm_network_security_group" "nsg_subnet" {
-  name                = "nsg_subnet"
+  name                = var.nsg_for_subnet
   location            = var.location
   resource_group_name = var.resource_group_name
 

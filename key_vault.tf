@@ -34,13 +34,13 @@ resource "azurerm_key_vault" "my_key_vault" {
 }
 
 resource "azurerm_key_vault_secret" "app_service_name" {
-  name         = "app-service-name"
+  name         = var.key_vault_secret_app_service_name
   value        = azurerm_linux_web_app.my_app_service.name
   key_vault_id = azurerm_key_vault.my_key_vault.id
 }
 
 resource "azurerm_key_vault_secret" "docker_registry_server_passwd" {
-  name         = "docker-registry-server-passwd"
+  name         = var.key_vault_secret_docker_registry_server_passwd
   value        = azurerm_container_registry.acr.admin_password
   key_vault_id = azurerm_key_vault.my_key_vault.id
 }

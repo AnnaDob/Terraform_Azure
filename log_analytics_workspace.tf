@@ -1,12 +1,12 @@
 resource "azurerm_automation_account" "app_service_automation" {
-  name                = "app-service-automation"
+  name                = var.app_service_automation_name
   location            = var.location
   resource_group_name = var.resource_group_name
   sku_name            = "Basic"
 }
 
 resource "azurerm_log_analytics_workspace" "app_service_log" {
-  name                = "app-service-log"
+  name                = var.app_service_log_name
   location            = var.location
   resource_group_name = var.resource_group_name
   sku                 = "PerGB2018"
@@ -14,7 +14,7 @@ resource "azurerm_log_analytics_workspace" "app_service_log" {
 }
 
 resource "azurerm_monitor_diagnostic_setting" "monitor_app_service" {
-  name                       = "monitor-app-service"
+  name                       = var.monitor_app_service_name
   target_resource_id         = azurerm_linux_web_app.my_app_service.id
   log_analytics_workspace_id = azurerm_log_analytics_workspace.app_service_log.id
 
